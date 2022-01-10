@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  frigate:
+    container_name: frigate
+    restart: always
+    privileged: true # this may not be necessary for all setups
+    restart: unless-stopped
+    image: blakeblackshear/frigate:stable-amd64
+    shm_size: "64mb" # update for your cameras based on calculation above
+    devices:
+      - /dev/apex:/dev/apex # passes a PCIe Coral, follow driver instructions here https://coral.ai/docs/m2/get-started/#2a-on-linux
+      - /dev/dri/renderD128 # for intel hwaccel, needs to be updated for your hardware
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /home/vanillax/docker-apps/frigate/config.yml:/config/config.yml:ro
+      - /home/vanillax/docker-apps/frigate/media:/media/frigate
+      - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
+        target: /tmp/cache
+        tmpfs:
+          size: 1000000000
+    ports:
+      - "5000:5000"
+  
+    environment:
+      FRIGATE_RTSP_PASSWORD: "password"

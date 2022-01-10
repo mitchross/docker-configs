@@ -1,0 +1,7 @@
+
+*.db
+*.db-shm
+*.db-wal
+*.mp4
+portainer/portainer-data/portainer.pub
+portainer/portainer-data/portainer.key
