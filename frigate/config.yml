@@ -239,7 +239,6 @@ cameras:
   kitchen:
     ffmpeg:
       inputs:
-        # - path: rtsp://admin:mitch2573@192.168.1.182:554/cam/realmonitor?channel=1&subtype=0&authbasic=64
         - path: rtsp://192.168.1.10:8554/kitchen
           roles:
             - detect
